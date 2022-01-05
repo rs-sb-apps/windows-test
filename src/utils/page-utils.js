@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('path').posix;
 
 function urlPathFromFilePath(filePath) {
     const pathObject = path.parse(filePath);
@@ -11,7 +11,10 @@ function urlPathFromFilePath(filePath) {
 }
 
 function cssClassesFromUrlPath(urlPath) {
-    const parts = urlPath.replace(/^\/|\/$/g, '').split('/').filter(Boolean);
+    const parts = urlPath
+        .replace(/^\/|\/$/g, '')
+        .split('/')
+        .filter(Boolean);
 
     let css = 'page';
     return parts.map((part) => {

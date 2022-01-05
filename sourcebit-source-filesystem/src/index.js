@@ -1,6 +1,7 @@
 const chokidar = require('chokidar');
 const fse = require('fs-extra');
 const path = require('path');
+const posixPath = require('path').posix;
 const _ = require('lodash');
 const { loadConfig } = require('@stackbit/sdk');
 const { parseFile, mapPromise, reducePromise, readDirRecursively } = require('@stackbit/utils');
@@ -156,12 +157,12 @@ async function readFiles(sources) {
                         _.assign(
                             {
                                 __metadata: {
-                                    id: `${relProjectPath}`,
+                                    id: `${convertPathToPosix(relProjectPath)}`,
                                     source: SOURCE,
                                     sourceName: name,
-                                    sourcePath: sourcePath,
-                                    relSourcePath: relSourcePath,
-                                    relProjectPath: relProjectPath
+                                    sourcePath: convertPathToPosix(sourcePath),
+                                    relSourcePath: convertPathToPosix(relSourcePath),
+                                    relProjectPath: convertPathToPosix(relProjectPath)
                                 }
                             },
                             data
@@ -176,4 +177,14 @@ async function readFiles(sources) {
         );
     });
     return _.chain(result).flatten().value();
+}
+
+function convertPathToPosix(p) {
+    if (path.sep === posixPath.sep) {
+        return p;
+    }
+    if (!p) {
+        return p;
+    }
+    return p.split(path.sep).join(posixPath.sep);
 }

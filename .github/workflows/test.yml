@@ -12,4 +12,6 @@ jobs:
         with:
           node-version: '14'
       - run: npm install
+      - run: npx rmdir-cli node_modules/sourcebit-source-filesystem
+      - run: npx move-cli sourcebit-source-filesystem node_modules/sourcebit-source-filesystem
       - run: npx next build
