@@ -11,3 +11,6 @@ jobs:
         with:
           node-version: '14'
       - run: node -e "console.log(path.join('hey', 'fo'))"
+      - run: node -e "console.log(path.join(__dirname, 'content/pages'))"
+      - run: node -e "console.log(path.normalize('content/data/config.json'))"
+      - run: node -e "console.log(path.posix.normalize('content/data/config.json'))"
