@@ -1,5 +1,5 @@
 const path = require('path');
-const { flattenMarkdownData, cssClassesFromFilePath, cssClassesFromUrlPath, urlPathFromFilePath } = require('./src/utils/page-utils');
+const { normalizePaths, flattenMarkdownData, cssClassesFromFilePath, cssClassesFromUrlPath, urlPathFromFilePath } = require('./src/utils/page-utils');
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -19,6 +19,8 @@ module.exports = {
                 ]
             }
         },
+
+        normalizePaths,
 
         /**
          * converts { __metadata, frontmatter, markdown }
