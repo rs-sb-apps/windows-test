@@ -7,10 +7,9 @@ jobs:
         os: ["ubuntu-latest", "windows-latest"]
     runs-on: ${{ matrix.os }}
     steps:
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - run: node -e "console.log(path.join('hey', 'fo'))"
-      - run: node -e "console.log(path.join(__dirname, 'content/pages'))"
-      - run: node -e "console.log(path.normalize('content/data/config.json'))"
-      - run: node -e "console.log(path.posix.normalize('content/data/config.json'))"
+      - run: npm install
+      - run: npx next build
